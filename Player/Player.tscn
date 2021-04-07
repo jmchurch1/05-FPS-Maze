@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://donutgun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Crosshair.png" type="Texture" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.4, 0.1, 0.4 )
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="Body" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.1, 0 )
+shape = SubResource( 1 )
+
+[node name="Feet" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+shape = SubResource( 2 )
+
+[node name="Pivot" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+
+[node name="Camera" type="Camera" parent="Pivot"]
+current = true
+
+[node name="AimCast" type="RayCast" parent="Pivot/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.19209e-07 )
+enabled = true
+cast_to = Vector3( 0, 0, -1000 )
+
+[node name="CenterContainer" type="CenterContainer" parent="Pivot/Camera"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Pivot/Camera/CenterContainer"]
+margin_left = 960.0
+margin_top = 540.0
+margin_right = 960.0
+margin_bottom = 540.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="donutgun" parent="Pivot" instance=ExtResource( 2 )]
+transform = Transform( -0.00527103, 0, -0.999986, 0, 1, 0, 0.999986, 0, -0.00527103, 0.159998, -0.212882, -1.13727 )
+
+[node name="Muzzle" type="Spatial" parent="Pivot/donutgun"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0464108, 0, 0.000244632 )

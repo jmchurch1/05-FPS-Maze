@@ -1,9 +1,9 @@
 extends KinematicBody
 
 onready var Camera = $Pivot/Camera
-onready var muzzle = get_node("Player/Pivot/donutgun/Muzzle")
-onready var donut_scene = preload("res://donutgun.tscn")
-
+onready var aimcast = $Pivot/Camera/AimCast
+onready var muzzle = $Pivot/donutgun/Muzzle
+onready var bullet = preload("res://bullet/bullet.tscn")
 
 var gravity = -30
 var max_speed = 8
@@ -11,6 +11,7 @@ var jump_speed = 10
 var mouse_sensitivity = 0.002
 var mouse_range = 1.2
 var ammo = 10
+var damage = 100
 
 var velocity = Vector3()
 var jump  = false
@@ -52,9 +53,8 @@ func _physics_process(delta):
 		jump = false
 
 func shoot():
-	var donut = donut_scene.instance()
-	get_node("/root/Game").add_child(donut)
-	
-	donut.global_transform = muzzle.global_transform
-	donut.scale = Vector3.ONE
-	ammo -= 1
+	if aimcast.is_colliding():
+		var b = bullet.instance()
+		muzzle.add_child(b)
+		b.look_at(aimcast.get_collision_point(), Vector3.UP)
+		b.shoot = true
