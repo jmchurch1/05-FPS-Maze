@@ -5,12 +5,12 @@ onready var aimcast = $Pivot/Camera/AimCast
 onready var muzzle = $Pivot/donutgun/Muzzle
 onready var bullet = preload("res://bullet/bullet.tscn")
 
+var menu = null
 var gravity = -30
 var max_speed = 8
 var jump_speed = 10
 var mouse_sensitivity = 0.002
 var mouse_range = 1.2
-var ammo = 10
 var damage = 100
 
 var velocity = Vector3()
@@ -19,18 +19,30 @@ var jump  = false
 func get_input():
 	var input_dir = Vector3()
 	if Input.is_action_just_pressed("exit"):
-		get_tree().quit()
+		if menu == null:
+			menu = get_node_or_null("UI/Menu")
+		if menu != null:
+			if not menu.visible:
+				get_tree().paused = true
+				menu.show()
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			else:
+				get_tree().paused = false
+				menu.hide()
+				Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+			
+			
 	if Input.is_action_just_pressed("jump"):
 		jump = true
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and not get_tree().paused:
 		shoot()
-	if Input.is_action_pressed("forward"):
+	if Input.is_action_pressed("forward") and not get_tree().paused:
 		input_dir += -Camera.global_transform.basis.z
-	if Input.is_action_pressed("back"):
+	if Input.is_action_pressed("back") and not get_tree().paused:
 		input_dir += Camera.global_transform.basis.z
-	if Input.is_action_pressed("left"):
+	if Input.is_action_pressed("left") and not get_tree().paused:
 		input_dir += -Camera.global_transform.basis.x
-	if Input.is_action_pressed("right"):
+	if Input.is_action_pressed("right") and not get_tree().paused:
 		input_dir += Camera.global_transform.basis.x
 	input_dir = input_dir.normalized()
 	return input_dir

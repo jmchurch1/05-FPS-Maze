@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://paralines.tres" type="DynamicFont" id=1]
+[ext_resource path="res://UI/Menu.gd" type="Script" id=2]
+
+[node name="Menu" type="Control"]
+pause_mode = 2
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0.160784, 0.105882, 0.105882, 0.686275 )
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 790.0
+margin_top = 800.0
+margin_right = 1190.0
+margin_bottom = 960.0
+custom_fonts/font = ExtResource( 1 )
+text = "Quit Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
