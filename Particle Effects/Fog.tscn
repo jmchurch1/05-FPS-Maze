@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Smoke2.png" type="Texture" id=1]
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+max_value = 4.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 4 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 0.1
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+spread = 100.0
+gravity = Vector3( 0, 1, 0 )
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 5 )
+anim_offset = 1.0
+anim_offset_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+flags_vertex_lighting = true
+flags_do_not_receive_shadows = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_line_width = 0.1
+params_point_size = 0.1
+params_billboard_mode = 3
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 0.439216, 0.439216, 0.439216, 1 )
+albedo_texture = ExtResource( 1 )
+metallic = 0.41
+uv1_triplanar_sharpness = 0.0743257
+
+[sub_resource type="QuadMesh" id=3]
+material = SubResource( 2 )
+
+[node name="Fog" type="Spatial"]
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 20, 0, 0, 0, 10, 0, 0, 0, 20, 0, -5.63012, 0 )
+amount = 256
+speed_scale = 0.5
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 3 )
