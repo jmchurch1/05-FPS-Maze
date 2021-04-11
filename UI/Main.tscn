@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://paralines.tres" type="DynamicFont" id=1]
 [ext_resource path="res://UI/Main.gd" type="Script" id=2]
+[ext_resource path="res://paralines-small.tres" type="DynamicFont" id=3]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -23,6 +24,19 @@ margin_right = 1277.29
 margin_bottom = 156.613
 custom_fonts/font = ExtResource( 1 )
 text = "Do Not Get Lost!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 644.293
+margin_top = 177.349
+margin_right = 1277.29
+margin_bottom = 273.349
+custom_fonts/font = ExtResource( 3 )
+text = "Press E to pick up the gun"
 align = 1
 valign = 1
 __meta__ = {
