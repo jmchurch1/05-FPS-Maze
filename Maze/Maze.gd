@@ -8,6 +8,8 @@ const W = 8
 var cell_walls = {Vector2(0, -1): N, Vector2(1, 0): E, 
 				  Vector2(0, 1): S, Vector2(-1, 0): W}
 
+onready var MiniMap = get_node("/root/Game/UI/VP/Map_Container/MiniMap")
+
 var map = []
 var tiles = [
 	load("res://Maze/00.tscn")
@@ -28,8 +30,28 @@ var tiles = [
 	,load("res://Maze/15.tscn")
 ]
 
+var mini_tiles = [
+	load("res://MiniMap/00.tscn")
+	,load("res://MiniMap/01.tscn")
+	,load("res://MiniMap/02.tscn")
+	,load("res://MiniMap/03.tscn")
+	,load("res://MiniMap/04.tscn")
+	,load("res://MiniMap/05.tscn")
+	,load("res://MiniMap/06.tscn")
+	,load("res://MiniMap/07.tscn")
+	,load("res://MiniMap/08.tscn")
+	,load("res://MiniMap/09.tscn")
+	,load("res://MiniMap/10.tscn")
+	,load("res://MiniMap/11.tscn")
+	,load("res://MiniMap/12.tscn")
+	,load("res://MiniMap/13.tscn")
+	,load("res://MiniMap/14.tscn")
+	,load("res://MiniMap/15.tscn")
+]
 
-var tile = 2  # tile size (in pixels)
+
+var tile = 2  # tile size (in meters)
+var mini_tile = 64 # tile size (in pixels)
 var width = 40  # width of map (in tiles)
 var height = 20  # height of map (in tiles)
 var tile_size = Vector2.ZERO
@@ -79,3 +101,7 @@ func make_maze():
 			t.translate(Vector3(x,0,z)*tile)
 			t.name = "Tile_" + str(x) + "_" + str(z)
 			add_child(t)
+			var t2 = mini_tiles[map[x][z]].instance()
+			t2.position = Vector2(x,z)*mini_tile
+			t2.name = "MTile_" + str(x) + "_" + str(z)
+			MiniMap.add_child(t2)

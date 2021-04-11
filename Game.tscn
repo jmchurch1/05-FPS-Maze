@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Maze/Maze.gd" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Exit.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Chase At Rush Hour.ogg" type="AudioStream" id=9]
+[ext_resource path="res://MiniMap/MiniMap.gd" type="Script" id=10]
+[ext_resource path="res://Assets/marker.png" type="Texture" id=11]
 
 [sub_resource type="PanoramaSky" id=3]
 panorama = ExtResource( 5 )
@@ -41,8 +43,6 @@ script = ExtResource( 2 )
 [node name="Exit" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 38 )
 
-[node name="Fog" parent="." instance=ExtResource( 4 )]
-
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.67163, 0.740887, 0, -0.740887, -0.67163, 0, 0, 0, 1, -16.8851, 63.4117, -12.9858 )
 light_color = Color( 0.184314, 0.184314, 0.184314, 1 )
@@ -51,6 +51,49 @@ light_energy = 0.6
 [node name="Enemy" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 2, 0, 2 )
 
+[node name="Enemy2" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 20, 0, 20 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 35, 0, 15 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 60, 0, 30 )
+
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 autoplay = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="VP" type="Control" parent="UI"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroundColor" type="ColorRect" parent="UI/VP"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.117647, 0.756863, 0.533333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Map_Container" type="Node2D" parent="UI/VP"]
+position = Vector2( 100, 100 )
+
+[node name="MiniMap" type="Node2D" parent="UI/VP/Map_Container"]
+position = Vector2( -100, -100 )
+scale = Vector2( 0.25, 0.25 )
+script = ExtResource( 10 )
+
+[node name="Marker" type="Sprite" parent="UI/VP"]
+position = Vector2( 100, 100 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 11 )
+
+[node name="Fog" parent="." instance=ExtResource( 4 )]
+transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 6.16245, 0 )
