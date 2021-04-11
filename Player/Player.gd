@@ -3,7 +3,13 @@ extends KinematicBody
 onready var Camera = $Pivot/Camera
 onready var aimcast = $Pivot/Camera/AimCast
 onready var muzzle = $Pivot/donutgun/Muzzle
+onready var gun = $Pivot/donutgun
+onready var gun_hitbox = $Gun
+onready var pickup = get_node_or_null("/root/Game/GunPickup")
+onready var invisible_gun = get_node_or_null("/root/Game/GunPickup/pedestool/donutgun")
+onready var gun_light = get_node_or_null("/root/Game/GunPickup/Light")
 onready var bullet = preload("res://bullet/bullet.tscn")
+
 
 var menu = null
 var gravity = -30
@@ -36,6 +42,14 @@ func get_input():
 		jump = true
 	if Input.is_action_just_pressed("shoot") and not get_tree().paused:
 		shoot()
+	if Input.is_action_just_pressed("interact") and not get_tree().paused:
+		#I am a genius lol
+		if pickup != null:
+			if pickup.in_box:
+				invisible_gun.hide()
+				gun.show()
+				gun_hitbox.disabled = false
+				gun_light.light_energy = 0
 	if Input.is_action_pressed("forward") and not get_tree().paused:
 		input_dir += -Camera.global_transform.basis.z
 	if Input.is_action_pressed("back") and not get_tree().paused:
