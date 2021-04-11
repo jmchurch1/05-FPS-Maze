@@ -6,6 +6,7 @@ onready var muzzle = $Pivot/donutgun/Muzzle
 onready var gun = $Pivot/donutgun
 onready var gun_hitbox = $Gun
 onready var Footstep = $Footstep
+onready var Shot = $Shot
 onready var pickup = get_node_or_null("/root/Game/GunPickup")
 onready var invisible_gun = get_node_or_null("/root/Game/GunPickup/pedestool/donutgun")
 onready var gun_light = get_node_or_null("/root/Game/GunPickup/Light")
@@ -26,6 +27,7 @@ var jump  = false
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Shot.CONNECT_ONESHOT
 
 func get_input():
 	var input_dir = Vector3()
@@ -43,7 +45,6 @@ func get_input():
 				menu.hide()
 				Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			
 			
 	if Input.is_action_just_pressed("jump"):
 		jump = true
@@ -95,7 +96,10 @@ func _physics_process(delta):
 	
 func shoot():
 	if aimcast.is_colliding():
+		Shot.play()
 		var b = bullet.instance()
 		muzzle.add_child(b)
 		b.look_at(aimcast.get_collision_point(), Vector3.UP)
 		b.shoot = true
+
+
