@@ -1,0 +1,32 @@
+[gd_resource type="SpatialMaterial" load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Candy001_2K_Normal.jpg" type="Texture" id=1]
+[ext_resource path="res://Assets/PaintedPlaster016_2K_Displacement.jpg" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.496599, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 0.907715, 0.529638, 0.102827, 1, 0.919434, 0.918673, 0.14007, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[resource]
+flags_transparent = true
+flags_no_depth_test = true
+flags_do_not_receive_shadows = true
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource( 2 )
+metallic = 1.0
+metallic_specular = 0.9
+roughness = 0.21
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 1 )
+depth_enabled = true
+depth_scale = 0.05
+depth_deep_parallax = false
+depth_flip_tangent = false
+depth_flip_binormal = false
+depth_texture = ExtResource( 2 )
+transmission_enabled = true
+transmission = Color( 0.933333, 0.654902, 0.121569, 1 )
