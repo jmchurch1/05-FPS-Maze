@@ -5,6 +5,7 @@ onready var aimcast = $Pivot/Camera/AimCast
 onready var muzzle = $Pivot/donutgun/Muzzle
 onready var gun = $Pivot/donutgun
 onready var gun_hitbox = $Gun
+onready var Footstep = $Footstep
 onready var pickup = get_node_or_null("/root/Game/GunPickup")
 onready var invisible_gun = get_node_or_null("/root/Game/GunPickup/pedestool/donutgun")
 onready var gun_light = get_node_or_null("/root/Game/GunPickup/Light")
@@ -84,7 +85,14 @@ func _physics_process(delta):
 	if jump and is_on_floor():
 		velocity.y = jump_speed
 		jump = false
-
+	
+	if velocity.x != 0 or velocity.z != 0  and is_on_floor():
+		if !Footstep.playing:
+			Footstep.play()
+	elif Footstep.playing:
+		Footstep.stop()
+	
+	
 func shoot():
 	if aimcast.is_colliding():
 		var b = bullet.instance()
