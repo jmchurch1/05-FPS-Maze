@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Maze/Maze.gd" type="Script" id=2]
@@ -6,7 +6,9 @@
 [ext_resource path="res://Particle Effects/Fog.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/space2dskybox.png" type="Texture" id=5]
 [ext_resource path="res://GunPickup.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Exit.gd" type="Script" id=7]
+[ext_resource path="res://Exit.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Chase At Rush Hour.ogg" type="AudioStream" id=9]
 
 [sub_resource type="PanoramaSky" id=3]
 panorama = ExtResource( 5 )
@@ -19,9 +21,6 @@ ambient_light_energy = 0.6
 ambient_light_sky_contribution = 0.5
 tonemap_mode = 3
 ss_reflections_enabled = true
-
-[sub_resource type="SphereShape" id=4]
-radius = 0.5
 
 [node name="Game" type="Spatial"]
 
@@ -39,17 +38,8 @@ transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, -
 [node name="Maze" type="Spatial" parent="."]
 script = ExtResource( 2 )
 
-[node name="Exit" type="Area" parent="."]
-script = ExtResource( 7 )
-
-[node name="Light" type="OmniLight" parent="Exit"]
-light_color = Color( 0.0588235, 0.854902, 0.239216, 1 )
-light_energy = 10.0
-omni_range = 3.0
-omni_attenuation = 2.0
-
-[node name="CollisionShape" type="CollisionShape" parent="Exit"]
-shape = SubResource( 4 )
+[node name="Exit" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 38 )
 
 [node name="Fog" parent="." instance=ExtResource( 4 )]
 
@@ -57,4 +47,10 @@ shape = SubResource( 4 )
 transform = Transform( -0.67163, 0.740887, 0, -0.740887, -0.67163, 0, 0, 0, 1, -16.8851, 63.4117, -12.9858 )
 light_color = Color( 0.184314, 0.184314, 0.184314, 1 )
 light_energy = 0.6
-[connection signal="body_entered" from="Exit" to="Exit" method="_on_Exit_body_entered"]
+
+[node name="Enemy" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 2, 0, 2 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+autoplay = true

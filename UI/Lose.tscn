@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://paralines.tres" type="DynamicFont" id=1]
+[ext_resource path="res://UI/Main.gd" type="Script" id=2]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.168627, 0.168627, 0.168627, 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 460.209
+margin_top = 94.2868
+margin_right = 1452.21
+margin_bottom = 190.287
+custom_fonts/font = ExtResource( 1 )
+text = "I can not believe you died!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="."]
+margin_left = 747.56
+margin_top = 381.637
+margin_right = 1166.56
+margin_bottom = 483.637
+custom_fonts/font = ExtResource( 1 )
+text = "try again?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 886.745
+margin_top = 603.885
+margin_right = 1054.74
+margin_bottom = 705.885
+custom_fonts/font = ExtResource( 1 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

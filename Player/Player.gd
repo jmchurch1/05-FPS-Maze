@@ -22,11 +22,15 @@ var damage = 100
 var velocity = Vector3()
 var jump  = false
 
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 func get_input():
 	var input_dir = Vector3()
 	if Input.is_action_just_pressed("exit"):
 		if menu == null:
-			menu = get_node_or_null("UI/Menu")
+			menu = get_node_or_null("UI/InputRemapMenu")
 		if menu != null:
 			if not menu.visible:
 				get_tree().paused = true
@@ -34,8 +38,10 @@ func get_input():
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			else:
 				get_tree().paused = false
+				Global.save_input()
 				menu.hide()
 				Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			
 			
 	if Input.is_action_just_pressed("jump"):
@@ -44,6 +50,7 @@ func get_input():
 		shoot()
 	if Input.is_action_just_pressed("interact") and not get_tree().paused:
 		#I am a genius lol
+		#I put way to much random stuff in the player script
 		if pickup != null:
 			if pickup.in_box:
 				invisible_gun.hide()
